@@ -54,7 +54,13 @@ def load_client():
     GOODFIRE_API_KEY = os.getenv("GOODFIRE_API_KEY")
     os.environ["OPENAI_API_KEY"] = GOODFIRE_API_KEY
     if GOODFIRE_API_KEY is None:
-        raise ValueError("GOODFIRE_API_KEY is not set")
+        raise ValueError(
+            "GOODFIRE_API_KEY is not set. Please set it using one of these methods:\n"
+            "1. Create a .env file with: GOODFIRE_API_KEY=your_api_key_here\n"
+            "2. Set environment variable: export GOODFIRE_API_KEY=your_api_key_here\n"
+            "3. Run with: GOODFIRE_API_KEY=your_api_key_here python bench.py [args]\n"
+            "See README.md for detailed instructions."
+        )
     else:
         print("GOODFIRE_API_KEY is set")
     client = goodfire.Client(api_key=GOODFIRE_API_KEY)
@@ -294,7 +300,14 @@ def save_results_to_file(filename, model, prompt, benchmark, topk, strength, lim
 
 def main_thread(model, prompt, benchmark = "gsm8k",topk=5, strength=0.3, limit=5, use_baseline=False, temperature=0.0, raw_results=False, log_name=None):
     print_ascii_title()
-    print(f"\n🚀 Starting benchmark with model: {model}")
+
+    if model == "70b":
+        full_model = "Llama-3.3-70B-Instruct"
+    elif model == "8b":
+        full_model = "Meta-Llama-3.1-8B-Instruct"
+    else:
+        full_model = model
+    print(f"\n🚀 Starting benchmark with model: {full_model}")
     print(f"📝 Using prompt: {prompt}")
     print(f"🎯 Benchmark: {benchmark}")
     print(f"⚙️  Configuration: topk={topk}, strength={strength}, limit={limit}")
@@ -386,7 +399,7 @@ def main_thread(model, prompt, benchmark = "gsm8k",topk=5, strength=0.3, limit=5
     # Save results to file
     print(f"💾 Saving results to {log_filename}...")
     save_results_to_file(
-        log_filename, model, prompt, benchmark, topk, strength, 
+        log_filename, full_model, prompt, benchmark, topk, strength, 
         limit, temperature, variant, eval_results, baseline_variant, baseline_results, raw_results
     )
     
