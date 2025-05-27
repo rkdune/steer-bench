@@ -4,3 +4,4 @@ __pycache__
 results/
 FIXES_APPLIED.md
 test_goodfire_integration.py
+CRITICAL_FIX_SUMMARY.md
