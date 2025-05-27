@@ -2,3 +2,5 @@
 venv/
 __pycache__
 results/
+FIXES_APPLIED.md
+test_goodfire_integration.py
