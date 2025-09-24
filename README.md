@@ -4,9 +4,10 @@ A benchmarking tool for evaluating Goodfire model variants with feature steering
 
 ## Setup
 
-### 1. Install Dependencies
+### 1. Install Dependencies and Activate Virtual Environment
 ```bash
-pip install -r requirements.txt
+uv sync
+source .venv/bin/activate
 ```
 
 ### 2. Set Your Goodfire API Key
@@ -55,7 +56,7 @@ $env:GOODFIRE_API_KEY="your_actual_api_key_here"; python bench.py --model 70b --
 
 ### Basic Usage
 ```bash
-python bench.py --model 70b --prompt "mathematical reasoning" --task gsm8k --limit 10
+uv run bench.py --model 70b --prompt "mathematical reasoning" --task gsm8k --limit 10
 ```
 
 ### Available Arguments
@@ -81,17 +82,17 @@ Other benchmark types (multiple choice, classification, etc.) are not yet suppor
 
 **Basic benchmark:**
 ```bash
-python bench.py --model 70b --prompt "mathematical reasoning" --task gsm8k --limit 20
+uv run bench.py --model 70b --prompt "mathematical reasoning" --task gsm8k --limit 20
 ```
 
 **With baseline comparison:**
 ```bash
-python bench.py --model 70b --prompt "truthfulness" --task truthfulqa_gen --baseline True --limit 50
+uv run bench.py --model 70b --prompt "truthfulness" --task truthfulqa_gen --baseline True --limit 50
 ```
 
 **Custom configuration:**
 ```bash
-python bench.py --model 8b --prompt "logical thinking" --task gsm8k --topk 10 --strength 0.5 --limit 100 --name my_experiment
+uv run bench.py --model 8b --prompt "logical thinking" --task gsm8k --topk 10 --strength 0.5 --limit 100 --name my_experiment
 ```
 
 ## Output
